@@ -1,14 +1,21 @@
 import Adafruit_BBIO.ADC as ADC
-import time
+import Adafruit_BBIO.GPIO as GPIO
+from time import sleep
 
 sensor_pin = 'P9_40'
+temperature_up = 'P9_11'
+temperature_down = 'P9_13'
 
 ADC.setup()
+GPIO.setup(temperature_up,GPIO.IN)
+GPIO.setup(temperature_down,GPIO.IN)
 
 while True:
         reading = ADC.read(sensor_pin)
         millivolts = reading * 1800  # 1.8V reference = 1800 mV
-        temp_c = (millivolts - 500) / 10
-        temp_f = (temp_c * 9/5) + 32
-        print('mv=%d C=%d F=%d' % (millivolts, temp_c, temp_f))
-        time.sleep(1)
+        celsius = (millivolts - 500) / 10
+        far = (celsius * 9/5) + 32
+        print('mv=%d C=%d F=%d' % (millivolts, celsius, far))
+        print(GPIO.input(temperature_up))
+        print(GPIO.input(temperature_down))
+        sleep(1)
