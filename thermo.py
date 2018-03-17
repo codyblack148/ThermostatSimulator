@@ -81,7 +81,7 @@ while True:
         if downPress:
             file.write("<P>Down button pressed.</p>\n")
         else:
-        file.write("<P>Down button inactive.</p>\n")
+            file.write("<P>Down button inactive.</p>\n")
         file.write("<P>Last Press Temperature Up @: ")
         file.write('{}'.format(upPressTime))
         file.write("</P>")
