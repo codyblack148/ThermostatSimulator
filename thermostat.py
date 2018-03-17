@@ -42,13 +42,13 @@ def pushToServer(x,y,pressTime):
     else:
         file.write("<P>Down button is NOT being pushed now.</p>\n")
     file.write("<P>Last Press: ")
-    file.write(pressTime)
+    file.write('{}'.format(pressTime))
     file.write("</P>")
     file.write("<P>Uptime: ")
-    file.write(uptime)
+    file.write('{}'.format(upTime))
     file.write("</P>")
     file.write("<P>Temperature (C): ")
-    file.write(celsius)
+    file.write('{}'.format(celsius))
     file.write("</P>")
 
 
