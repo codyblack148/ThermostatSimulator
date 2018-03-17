@@ -27,9 +27,9 @@ def update():
 
 def pushToServer(x,y,pressTime):
     #r = requests.post(url='192.168.7.2:8080',data={'Temperature':celsius},json=None)
-    file = open('/var/www/cgi-bin','w')
-    file.write("#!/usr/bin/python\n")
-    file.write("Content-type: text/html\n\n")
+    file = open('/var/www/html/pr3.html','w')
+    #file.write("#!/usr/bin/python\n")
+    #file.write("Content-type: text/html\n\n")
     file.write("<title>CGI 101</title>")
     file.write("<h1>A First CGI Example</h1>")
     file.write("<P>Hello, CGI World!</p>")
