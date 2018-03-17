@@ -12,9 +12,9 @@ avgTempHour = 0
 avgTemp24Hours = 0
 hourTemperatureList = [1]
 dayTemperatureList = [1]
-
 listTracker = 0
 
+sensor = 'P9_40'
 ADC.setup()
 # add another while loop with another timer for every layer added, example: years, decades
 while dayTimer < 86400:  #86400 seconds is 24 hours
