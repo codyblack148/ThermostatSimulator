@@ -10,6 +10,7 @@ hourTemperatureList = [0]
 dayTemperatureList = [0]
 listTracker = 0
 
+sensor = 'P9_40'
 ADC.setup()
 #initialize temps to first reading
 reading = ADC.read(sensor)
