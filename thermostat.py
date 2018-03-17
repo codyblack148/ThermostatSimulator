@@ -9,6 +9,8 @@ debug = 1 # change to 1 for debug statements.
 def update():
     downPress = False
     upPress = False
+    upValue = GPIO.input(temperatureUp)
+    downValue = GPIO.input(temperatureDown)
     while True:
             reading = ADC.read(sensor)
             millivolts = reading * 1800  # 1.8V reference = 1800 mV
@@ -19,6 +21,7 @@ def update():
                 upValue = GPIO.input(temperatureUp)
                 upPress = True
                 buttonPressTime = subprocess.check_output(['date'])
+                break
             if GPIO.event_detected(temperatureDown):
                 downValue = GPIO.input(temperatureDown)
                 downPress = True
