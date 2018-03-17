@@ -23,9 +23,13 @@ if debug:
 
 # Use subprocess to store uptime info in UpTimeStr. Parse upTimeStr for exact time.
 upTimeStr = subprocess.check_output(['uptime'])
-index = str.find("up")
+index = upTimeStr.find("up")
+upTime = upTimeStr[index+3:index+11]
+if upTime.find(",") not -1:
+    upTime = upTimeStr[index+3:index+10]
+
 if debug:
-    print("System Uptime: \n {}".format(upTimeStr[index+2:index+6]))
+    print(upTime)
 
 # Use subprocess to store current date/time.
 date = subprocess.check_output(['date'])
