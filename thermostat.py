@@ -5,22 +5,9 @@ from time import sleep
 
 debug = 1 # change to 1 for debug statements.
 
-def initializeServer():
-    currentSysTime = subprocess.check_output(['date'])
-    file = open('/var/www/html/pr3.html','w')
-    file.write("<title>Whiskey is Life</title>")
-    file.write("<h1>CodyWanKenobi's Jedi Magic</h1>")
-    file.write("<P>System IP Information: \n")
-    file.write('{}'.format(IP_Address))
-    file.write("</P>")
-    file.write("<P>Current System Time/Date: ")
-    file.write('{}'.format(currentSysTime))
-    file.write("</P>")
-    file.close()
-    update()
 
 # update temperature values and button values
-def update():
+def update(previousSysTime):
     downPress = False
     upPress = False
     upValue = GPIO.input(temperatureUp)
@@ -31,11 +18,10 @@ def update():
             celsius = (millivolts - 500) / 10
             far = (celsius * 9/5) + 32
             currentSysTime = subprocess.check_output(['date'])
-            file = open('/var/www/html/pr3.html','w')
-            file.write("<P>Current System Time/Date: ")
-            file.write('{}'.format(currentSysTime))
-            file.write("</P>")
-            file.close()
+            with open('/var/www/html/pr3.html','r+') as f:
+                data = f.read()
+                for line in data:
+                    f.write(line.replace(previousSysTime,currentSysTime))
             #print('mv=%d C=%d F=%d' % (millivolts, celsius, far))
             if GPIO.event_detected(temperatureUp):
                 upValue = GPIO.input(temperatureUp)
@@ -88,7 +74,7 @@ def pushToServer(x,y,pressTime,c,f,u,d):
     file.write('{}'.format(f))
     file.write("</P>")
     file.close()
-    update()
+    update(currentSysTime)
 
 # pins
 sensor = 'P9_40'
@@ -133,5 +119,4 @@ reading = ADC.read(sensor)
 millivolts = reading * 1800  # 1.8V reference = 1800 mV
 c = (millivolts - 500) / 10
 f = (c * 9/5) + 32
-#pushToServer(upButtonValue,downButtonValue,buttonPressTime,c,f,u=False,d=False)
-initializeServer()
+pushToServer(upButtonValue,downButtonValue,buttonPressTime,c,f,u=False,d=False)
