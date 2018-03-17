@@ -28,11 +28,6 @@ while dayTimer < 86400:  #86400 seconds is 24 hours
     dayTemperatureList.append(avgTempHour)
     avgTemp24Hours = sum(dayTemperatureList)/len(dayTemperatureList)
     with open('/var/www/html/hourlyTempStatistics.html','w') as file:
-        file.write("<title>Yes Daddy</title>")
-        file.write("<h1>CodyWanKenobi's Jedi Magic</h1>")
-        file.write("<P>Current System Temperature Statistics (C): \n")
-        file.write('HourAvg=%f DayAvg=%f Min=%f Max=%f' % (avgTempHour, avgTemp24Hours,minTemp,maxTemp ))
-        file.write("</P>")
     while hourTimer < 3600: # 3600 seconds is 1 hour
         reading = ADC.read(sensor)
         celsius = ((reading*1800) - 500) / 10
@@ -48,6 +43,11 @@ while dayTimer < 86400:  #86400 seconds is 24 hours
             minTemp = hourTemperatureList[listTracker]
             #print(minTemp)
         print('HourAvg=%f DayAvg=%f Min=%f Max=%f' % (avgTempHour, avgTemp24Hours,minTemp,maxTemp ))
+        file.write("<title>Yes Daddy</title>")
+        file.write("<h1>CodyWanKenobi's Jedi Magic</h1>")
+        file.write("<P>Current System Temperature Statistics (C): \n")
+        file.write('HourAvg=%f DayAvg=%f Min=%f Max=%f' % (avgTempHour, avgTemp24Hours,minTemp,maxTemp ))
+        file.write("</P>")
         listTracker += 1
         dayTimer += 120
         hourTimer += 120
