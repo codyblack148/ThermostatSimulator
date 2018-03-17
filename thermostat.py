@@ -6,6 +6,34 @@ from time import sleep
 
 debug = 1 # change to 1 for debug statements.
 
+# update temperature values and button values
+def update():
+    while True:
+            reading = ADC.read(sensor)
+            millivolts = reading * 1800  # 1.8V reference = 1800 mV
+            celsius = (millivolts - 500) / 10
+            far = (celsius * 9/5) + 32
+            print('mv=%d C=%d F=%d' % (millivolts, celsius, far))
+            if GPIO.event_detected(temperatureUp) or GPIO.event_detected(temperatureDown):
+                upValue = GPIO.input(temperatureUp)
+                downValue = GPIO.input(temperatureDown)
+                buttonPressTime = subprocess.check_output(['date'])
+                break
+            if debug:
+                print(GPIO.input(temperatureUp))
+                print(GPIO.input(temperatureDown))
+            sleep(1)
+    pushToServer(upValue,downValue,buttonPressTime)
+
+def pushToServer(x,y,pressTime):
+    r = requests.post(url='192.168.7.2:8080',data={'Temperature':celsius},json=None)
+
+
+
+
+
+    update()
+
 # pins
 sensor = 'P9_40'
 temperatureUp = 'P9_11'
@@ -47,31 +75,3 @@ GPIO.add_event_detect(temperatureUp,GPIO.BOTH)
 GPIO.add_event_detect(temperatureDown,GPIO.BOTH)
 
 pushToServer(upButtonValue,downButtonValue,buttonPressTime)
-
-# update temperature values and button values
-def update():
-    while True:
-            reading = ADC.read(sensor)
-            millivolts = reading * 1800  # 1.8V reference = 1800 mV
-            celsius = (millivolts - 500) / 10
-            far = (celsius * 9/5) + 32
-            print('mv=%d C=%d F=%d' % (millivolts, celsius, far))
-            if GPIO.event_detected(temperatureUp) or GPIO.event_detected(temperatureDown):
-                upValue = GPIO.input(temperatureUp)
-                downValue = GPIO.input(temperatureDown)
-                buttonPressTime = subprocess.check_output(['date'])
-                break
-            if debug:
-                print(GPIO.input(temperatureUp))
-                print(GPIO.input(temperatureDown))
-            sleep(1)
-    pushToServer(upValue,downValue,buttonPressTime)
-
-def pushToServer(x,y,pressTime):
-    r = requests.post(url=192.168.7.2:8080,data={'Temperature':celsius},json=None)
-
-
-
-
-
-    update()
