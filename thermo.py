@@ -3,6 +3,7 @@ import Adafruit_BBIO.GPIO as GPIO
 import subprocess
 from time import sleep
 
+debug = 0
 
 # pins
 sensor = 'P9_40'
