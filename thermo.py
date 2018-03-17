@@ -32,8 +32,8 @@ date = subprocess.check_output(['date'])
 ADC.setup()
 GPIO.setup(temperatureUp,GPIO.IN)
 GPIO.setup(temperatureDown,GPIO.IN)
-GPIO.add_event_detect(temperatureUp,GPIO.BOTH)
-GPIO.add_event_detect(temperatureDown,GPIO.BOTH)
+GPIO.add_event_detect(temperatureUp,GPIO.RISING)
+GPIO.add_event_detect(temperatureDown,GPIO.RISING)
 
 
 upValue = GPIO.input(temperatureUp)
@@ -75,13 +75,14 @@ while True:
         file.write('{}'.format(upTime))
         file.write("</P>")
         if upPress:
-            file.write("<P>Up button is being pushed now.</p>\n")
+            file.write("<P>Up button pressed.</p>\n")
+
         else:
-            file.write("<P>Up button is NOT being pushed now.</p>\n")
+            file.write("<P>Up button inactive.</p>\n")
         if downPress:
-            file.write("<P>Down button is being pushed now.</p>\n")
+            file.write("<P>Down button pressed.</p>\n")
         else:
-            file.write("<P>Down button is NOT being pushed now.</p>\n")
+            file.write("<P>Down button inactive.</p>\n")
         if upValue:
             file.write("<P>Last Press Temperature Up @: ")
             file.write('{}'.format(buttonPressTime))
