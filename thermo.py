@@ -1,4 +1,4 @@
-import Adafruit_BBIO.ADC as ADC
+thermostatDisplay.htmlimport Adafruit_BBIO.ADC as ADC
 import Adafruit_BBIO.GPIO as GPIO
 import subprocess
 from time import sleep
@@ -62,7 +62,7 @@ while True:
         downPressTime = subprocess.check_output(['date'])
     upValue = GPIO.input(temperatureUp)
     downValue = GPIO.input(temperatureDown)
-    with open('/var/www/html/pr3.html','w') as file:
+    with open('/var/www/html/thermostatDisplay.html','w') as file:
         file.write("<title>Whiskey is Life</title>")
         file.write("<h1>CodyWanKenobi's Jedi Magic</h1>")
         file.write("<P>System IP Information: \n")

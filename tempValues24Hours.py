@@ -14,12 +14,12 @@ sensor = 'P9_40'
 ADC.setup()
 #initialize temps to first reading
 reading = ADC.read(sensor)
-celsius = ((reading*1800) - 500) / 10
+celsiusInitial = ((reading*1800) - 500) / 10
 sensor = 'P9_40'
-maxTemp = celsius
-minTemp = celsius
-hourTemperatureList.append(celsius)
-dayTemperatureList.append(celsius)
+maxTemp = celsiusInitial
+minTemp = celsiusInitial
+hourTemperatureList.append(celsiusInitial)
+dayTemperatureList.append(celsiusInitial)
 # add another while loop with another timer for every layer added, example: years, decades
 while dayTimer < 86400:  #86400 seconds is 24 hours
     hourTimer = 0
@@ -27,6 +27,12 @@ while dayTimer < 86400:  #86400 seconds is 24 hours
     avgTempHour = sum(hourTemperatureList)/len(hourTemperatureList)
     dayTemperatureList.append(avgTempHour)
     avgTemp24Hours = sum(dayTemperatureList)/len(dayTemperatureList)
+    with open('/var/www/html/hourlyTempStatistics.html','w') as file:
+        file.write("<title>Yes Daddy</title>")
+        file.write("<h1>CodyWanKenobi's Jedi Magic</h1>")
+        file.write("<P>Current System Temperature Statistics (C): \n")
+        file.write('HourAvg=%f DayAvg=%f Min=%f Max=%f' % (avgTempHour, avgTemp24Hours,minTemp,maxTemp ))
+        file.write("</P>")
     while hourTimer < 3600: # 3600 seconds is 1 hour
         reading = ADC.read(sensor)
         celsius = ((reading*1800) - 500) / 10
