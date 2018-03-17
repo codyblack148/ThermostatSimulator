@@ -90,10 +90,10 @@ while True:
             file.write('{}'.format(pressTime))
             file.write("</P>")
         file.write("<P>Temperature (C): ")
-        file.write('{}'.format(c))
+        file.write('{}'.format(celsius))
         file.write("</P>")
         file.write("<P>Temperature (F): ")
-        file.write('{}'.format(f))
+        file.write('{}'.format(far))
         file.write("</P>")
 
     sleep(.5)
