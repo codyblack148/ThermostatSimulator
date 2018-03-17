@@ -26,7 +26,7 @@ while dayTimer < 86400:  #86400 seconds is 24 hours
     while hourTimer < 3600: # 3600 seconds is 1 hour
         reading = ADC.read(sensor)
         celsius = ((reading*1800) - 500) / 10
-        temperatureList.append(celsius)
+        hourTemperatureList.append(celsius)
         if temperatureList[listTracker] > maxTemp:
             maxTemp = temperatureList[listTracker]
         if temperatureList[listTracker] < minTemp:
