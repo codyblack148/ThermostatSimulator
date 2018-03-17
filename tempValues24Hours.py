@@ -27,12 +27,14 @@ while dayTimer < 86400:  #86400 seconds is 24 hours
         reading = ADC.read(sensor)
         celsius = ((reading*1800) - 500) / 10
         hourTemperatureList.append(celsius)
-        print(celsius)
-        print(hourTemperatureList[listTracker])
+        #print(celsius)
+        #print(hourTemperatureList[listTracker])
+        print(minTemp)
         if hourTemperatureList[listTracker] > maxTemp:
             maxTemp = hourTemperatureList[listTracker]
         if hourTemperatureList[listTracker] < minTemp:
             minTemp = hourTemperatureList[listTracker]
+            print(minTemp)
         #print('HourAvg=%d DayAvg=%d Min=%d Max=%d' % (avgTempHour, avgTemp24Hours,minTemp,maxTemp ))
         listTracker += 1
         dayTimer += 5
