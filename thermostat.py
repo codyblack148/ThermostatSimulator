@@ -31,10 +31,13 @@ def update():
     pushToServer(upValue,downValue,buttonPressTime,celsius,far,upPress,downPress)
 
 def pushToServer(x,y,pressTime,c,f,u,d):
+    currentSysTime = subprocess.check_output(['date'])
     file = open('/var/www/html/pr3.html','w')
     file.write("<title>Whiskey is Life</title>")
     file.write("<h1>CodyWanKenobi's Jedi Statistics</h1>")
-    file.write("<P>This is fun</p>")
+    file.write("<P>Current System Time/Date: ")
+    file.write('{}'.format(currentSysTime))
+    file.write("</P>")
     if x:
         file.write("<P>Up button is being pushed now.</p>\n")
     else:
@@ -101,8 +104,7 @@ if debug:
 
 # Use subprocess to store current date/time.
 date = subprocess.check_output(['date'])
-if debug:
-    print("System Date: {}".format(date))
+
 ADC.setup()
 GPIO.setup(temperatureUp,GPIO.IN)
 GPIO.setup(temperatureDown,GPIO.IN)
