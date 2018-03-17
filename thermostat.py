@@ -6,7 +6,9 @@ from time import sleep
 sensor = 'P9_40'
 temperature_up = 'P9_11'
 temperature_down = 'P9_13'
-IP_Address = subprocess.check_output(['ip','addr','show','|','grep','inet'])
+ps = subprocess.Popen(['ip addr show | grep inet'], stdout=subprocess.PIPE)
+output = subprocess.check_output(('grep', 'process_name'), stdin=ps.stdout)
+ps.wait()
 print("System IP Address Information: \n {}".format(IP_Address))
 
 ADC.setup()
