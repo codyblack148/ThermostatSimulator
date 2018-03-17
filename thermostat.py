@@ -30,6 +30,7 @@ def update():
             millivolts = reading * 1800  # 1.8V reference = 1800 mV
             celsius = (millivolts - 500) / 10
             far = (celsius * 9/5) + 32
+            currentSysTime = subprocess.check_output(['date'])
             file = open('/var/www/html/pr3.html','w')
             file.write("<P>Current System Time/Date: ")
             file.write('{}'.format(currentSysTime))
