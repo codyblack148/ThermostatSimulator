@@ -6,8 +6,8 @@ dayTimer = 0
 hourTimer = 0
 avgTempHour = 0
 avgTemp24Hours = 0
-hourTemperatureList = [0]
-dayTemperatureList = [0]
+hourTemperatureList = []
+dayTemperatureList = []
 listTracker = 0
 
 sensor = 'P9_40'
@@ -18,6 +18,8 @@ celsius = ((reading*1800) - 500) / 10
 sensor = 'P9_40'
 maxTemp = celsius
 minTemp = celsius
+hourTemperatureList.append(celsius)
+dayTemperatureList.append(celsius)
 # add another while loop with another timer for every layer added, example: years, decades
 while dayTimer < 86400:  #86400 seconds is 24 hours
     hourTimer = 0
