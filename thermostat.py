@@ -1,6 +1,7 @@
 import Adafruit_BBIO.ADC as ADC
 import Adafruit_BBIO.GPIO as GPIO
 import subprocess
+import requests
 from time import sleep
 
 debug = 1 # change to 1 for debug statements.
@@ -10,9 +11,12 @@ sensor = 'P9_40'
 temperatureUp = 'P9_11'
 temperatureDown = 'P9_13'
 
-# values that reflect the GPIO input values
+# values that reflect the GPIO input values, initialize system time for button change
 upButtonValue = 0
 downButtonValue = 0
+buttonPressTime = 0
+celsius = 0
+far = 0
 
 # use subprocess to store IP information in IP_Address
 ps = subprocess.Popen(['ip','addr','show'], stdout=subprocess.PIPE)
@@ -39,8 +43,10 @@ if debug:
 ADC.setup()
 GPIO.setup(temperatureUp,GPIO.IN)
 GPIO.setup(temperatureDown,GPIO.IN)
+GPIO.add_event_detect(temperatureUp,GPIO.BOTH)
+GPIO.add_event_detect(temperatureDown,GPIO.BOTH)
 
-#update()
+pushToServer(upButtonValue,downButtonValue,buttonPressTime)
 
 # update temperature values and button values
 def update():
@@ -50,10 +56,22 @@ def update():
             celsius = (millivolts - 500) / 10
             far = (celsius * 9/5) + 32
             print('mv=%d C=%d F=%d' % (millivolts, celsius, far))
-            upValue = GPIO.input(temperatureUp)
-            downValue = GPIO.input(temperatureDown)
+            if GPIO.event_detected(temperatureUp) or GPIO.event_detected(temperatureDown):
+                upValue = GPIO.input(temperatureUp)
+                downValue = GPIO.input(temperatureDown)
+                buttonPressTime = subprocess.check_output(['date'])
+                break
             if debug:
                 print(GPIO.input(temperatureUp))
                 print(GPIO.input(temperatureDown))
-
             sleep(1)
+    pushToServer(upValue,downValue,buttonPressTime)
+
+def pushToServer(x,y,pressTime):
+    r = requests.post(url=192.168.7.2:8080,data={'Temperature':celsius},json=None)
+
+
+
+
+
+    update()
