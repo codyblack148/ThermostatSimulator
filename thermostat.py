@@ -23,9 +23,9 @@ def update():
                 print(GPIO.input(temperatureUp))
                 print(GPIO.input(temperatureDown))
             sleep(1)
-    pushToServer(upValue,downValue,buttonPressTime)
+    pushToServer(upValue,downValue,buttonPressTime,celsius,far)
 
-def pushToServer(x,y,pressTime):
+def pushToServer(x,y,pressTime,c,f):
     #r = requests.post(url='192.168.7.2:8080',data={'Temperature':celsius},json=None)
     file = open('/var/www/html/pr3.html','w')
     #file.write("#!/usr/bin/python\n")
@@ -48,7 +48,10 @@ def pushToServer(x,y,pressTime):
     file.write('{}'.format(upTime))
     file.write("</P>")
     file.write("<P>Temperature (C): ")
-    file.write('{}'.format(celsius))
+    file.write('{}'.format(c))
+    file.write("</P>")
+    file.write("<P>Temperature (F): ")
+    file.write('{}'.format(f))
     file.write("</P>")
 
 
@@ -98,4 +101,4 @@ GPIO.setup(temperatureDown,GPIO.IN)
 GPIO.add_event_detect(temperatureUp,GPIO.BOTH)
 GPIO.add_event_detect(temperatureDown,GPIO.BOTH)
 
-pushToServer(upButtonValue,downButtonValue,buttonPressTime)
+pushToServer(upButtonValue,downButtonValue,buttonPressTime,c='fuck me',f='fuck you')
