@@ -1,31 +1,33 @@
 import Adafruit_BBIO.ADC as ADC
 import Adafruit_BBIO.GPIO as GPIO
 import subprocess
-import requests
 from time import sleep
 
 debug = 1 # change to 1 for debug statements.
 
 # update temperature values and button values
 def update():
+    downPress = False
+    upPress = False
     while True:
             reading = ADC.read(sensor)
             millivolts = reading * 1800  # 1.8V reference = 1800 mV
             celsius = (millivolts - 500) / 10
             far = (celsius * 9/5) + 32
             print('mv=%d C=%d F=%d' % (millivolts, celsius, far))
-            if GPIO.event_detected(temperatureUp) or GPIO.event_detected(temperatureDown):
+            if GPIO.event_detected(temperatureUp):
                 upValue = GPIO.input(temperatureUp)
+                upPress = True
+                buttonPressTime = subprocess.check_output(['date'])
+            if GPIO.event_detected(temperatureDown):
                 downValue = GPIO.input(temperatureDown)
+                downPress = True
                 buttonPressTime = subprocess.check_output(['date'])
                 break
-            if debug:
-                print(GPIO.input(temperatureUp))
-                print(GPIO.input(temperatureDown))
             sleep(1)
-    pushToServer(upValue,downValue,buttonPressTime,celsius,far)
+    pushToServer(upValue,downValue,buttonPressTime,celsius,far,upPress,downPress)
 
-def pushToServer(x,y,pressTime,c,f):
+def pushToServer(x,y,pressTime,c,f,u,d):
     #r = requests.post(url='192.168.7.2:8080',data={'Temperature':celsius},json=None)
     file = open('/var/www/html/pr3.html','w')
     #file.write("#!/usr/bin/python\n")
@@ -41,9 +43,15 @@ def pushToServer(x,y,pressTime,c,f):
         file.write("<P>Down button is being pushed now.</p>\n")
     else:
         file.write("<P>Down button is NOT being pushed now.</p>\n")
-    file.write("<P>Last Press: ")
-    file.write('{}'.format(pressTime))
-    file.write("</P>")
+    if u:
+        file.write("<P>Last Press Temperature Up @: ")
+        file.write('{}'.format(pressTime))
+        file.write("</P>")
+    if d:
+        file.write("<P>Last Press Temperature Down @: ")
+        file.write('{}'.format(pressTime))
+        file.write("</P>")
+
     file.write("<P>Uptime: ")
     file.write('{}'.format(upTime))
     file.write("</P>")
@@ -101,4 +109,4 @@ GPIO.setup(temperatureDown,GPIO.IN)
 GPIO.add_event_detect(temperatureUp,GPIO.BOTH)
 GPIO.add_event_detect(temperatureDown,GPIO.BOTH)
 
-pushToServer(upButtonValue,downButtonValue,buttonPressTime,c='fuck me',f='fuck you')
+pushToServer(upButtonValue,downButtonValue,buttonPressTime,c='fuck me',f='fuck you',u=False,d=False)
