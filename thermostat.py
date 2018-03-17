@@ -31,8 +31,22 @@ def pushToServer(x,y,pressTime):
     #file.write("#!/usr/bin/python\n")
     #file.write("Content-type: text/html\n\n")
     file.write("<title>CGI 101</title>")
-    file.write("<h1>A First CGI Example</h1>")
-    file.write("<P>Hello, CGI World!</p>")
+    file.write("<h1>CodyWanKenobi's Jedi Statistics</h1>")
+    file.write("<P>This is fun")
+    if x:
+        file.write("Up button is being pushed now.\n")
+    else:
+        file.write("Up button is NOT being pushed now.\n")
+    if y:
+        file.write("Down button is being pushed now.\n")
+    else:
+        file.write("Down button is NOT being pushed now.\n")
+    file.write("%s\n".format(pressTime))
+    file.write("%s\n".format(upTime))
+    file.write("%s\n".format(celsius))
+
+
+
     file.close()
 
 
