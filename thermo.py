@@ -3,7 +3,7 @@ import Adafruit_BBIO.GPIO as GPIO
 import subprocess
 from time import sleep
 
-debug = 0
+debug = 1
 
 # pins
 sensor = 'P9_40'
@@ -35,9 +35,6 @@ GPIO.setup(temperatureDown,GPIO.IN)
 GPIO.add_event_detect(temperatureUp,GPIO.RISING)
 GPIO.add_event_detect(temperatureDown,GPIO.RISING)
 
-
-upValue = GPIO.input(temperatureUp)
-downValue = GPIO.input(temperatureDown)
 while True:
     downPress = False
     upPress = False
@@ -46,7 +43,7 @@ while True:
     celsius = (millivolts - 500) / 10
     far = (celsius * 9/5) + 32
     currentSysTime = subprocess.check_output(['date'])
-    #print('mv=%d C=%d F=%d' % (millivolts, celsius, far))
+    print('mv=%d C=%d F=%d' % (millivolts, celsius, far))
     upTimeStr = subprocess.check_output(['uptime'])
     index = upTimeStr.find("up")
     upTime = upTimeStr[index+3:index+11]
@@ -56,12 +53,13 @@ while True:
     if GPIO.event_detected(temperatureUp):
         upValue = GPIO.input(temperatureUp)
         upPress = True
-        buttonPressTime = subprocess.check_output(['date'])
+        upPressTime = subprocess.check_output(['date'])
     if GPIO.event_detected(temperatureDown):
         downValue = GPIO.input(temperatureDown)
         downPress = True
-        buttonPressTime = subprocess.check_output(['date'])
-
+        downPressTime = subprocess.check_output(['date'])
+    upValue = GPIO.input(temperatureUp)
+    downValue = GPIO.input(temperatureDown)
     with open('/var/www/html/pr3.html','w') as file:
         file.write("<title>Whiskey is Life</title>")
         file.write("<h1>CodyWanKenobi's Jedi Magic</h1>")
@@ -85,11 +83,11 @@ while True:
             file.write("<P>Down button inactive.</p>\n")
         if upValue:
             file.write("<P>Last Press Temperature Up @: ")
-            file.write('{}'.format(buttonPressTime))
+            file.write('{}'.format(upPressTime))
             file.write("</P>")
         if downValue:
             file.write("<P>Last Press Temperature Down @: ")
-            file.write('{}'.format(buttonPressTime))
+            file.write('{}'.format(downPressTime))
             file.write("</P>")
         file.write("<P>Temperature (C): ")
         file.write('{}'.format(celsius))
