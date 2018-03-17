@@ -6,7 +6,7 @@ from time import sleep
 sensor = 'P9_40'
 temperature_up = 'P9_11'
 temperature_down = 'P9_13'
-ps = subprocess.Popen(['ip addr show'], stdout=subprocess.PIPE)
+ps = subprocess.Popen(['ip','addr','show'], stdout=subprocess.PIPE)
 IP_Address = subprocess.check_output(('grep', 'inet'), stdin=ps.stdout)
 ps.wait()
 print("System IP Address Information: \n {}".format(IP_Address))
