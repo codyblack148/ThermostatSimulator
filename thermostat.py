@@ -31,10 +31,7 @@ def update():
     pushToServer(upValue,downValue,buttonPressTime,celsius,far,upPress,downPress)
 
 def pushToServer(x,y,pressTime,c,f,u,d):
-    #r = requests.post(url='192.168.7.2:8080',data={'Temperature':celsius},json=None)
     file = open('/var/www/html/pr3.html','w')
-    #file.write("#!/usr/bin/python\n")
-    #file.write("Content-type: text/html\n\n")
     file.write("<title>Whiskey is Life</title>")
     file.write("<h1>CodyWanKenobi's Jedi Statistics</h1>")
     file.write("<P>This is fun</p>")
@@ -111,5 +108,9 @@ GPIO.setup(temperatureUp,GPIO.IN)
 GPIO.setup(temperatureDown,GPIO.IN)
 GPIO.add_event_detect(temperatureUp,GPIO.BOTH)
 GPIO.add_event_detect(temperatureDown,GPIO.BOTH)
-
-pushToServer(upButtonValue,downButtonValue,buttonPressTime,c='fuck me',f='fuck you',u=False,d=False)
+# initialize temp values for pushToServer
+reading = ADC.read(sensor)
+millivolts = reading * 1800  # 1.8V reference = 1800 mV
+c = (millivolts - 500) / 10
+f = (c * 9/5) + 32
+pushToServer(upButtonValue,downButtonValue,buttonPressTime,c,f,u=False,d=False)
