@@ -10,8 +10,8 @@ maxTemp = 0
 minTemp = 100
 avgTempHour = 0
 avgTemp24Hours = 0
-hourTemperatureList = []
-dayTemperatureList = []
+hourTemperatureList = [1]
+dayTemperatureList = [1]
 
 listTracker = 0
 
