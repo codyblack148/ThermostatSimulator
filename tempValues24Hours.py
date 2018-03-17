@@ -21,13 +21,13 @@ minTemp = celsius
 hourTemperatureList.append(celsius)
 dayTemperatureList.append(celsius)
 # add another while loop with another timer for every layer added, example: years, decades
-while dayTimer < 86400:  #86400 seconds is 24 hours
+while dayTimer < 20:  #86400 seconds is 24 hours
     hourTimer = 0
     listTracker = 0
     avgTempHour = sum(hourTemperatureList)/len(hourTemperatureList)
     dayTemperatureList.append(avgTempHour)
     avgTemp24Hours = sum(dayTemperatureList)/len(dayTemperatureList)
-    while hourTimer < 3600: # 3600 seconds is 1 hour
+    while hourTimer < 10: # 3600 seconds is 1 hour
         reading = ADC.read(sensor)
         celsius = ((reading*1800) - 500) / 10
         hourTemperatureList.append(celsius)
@@ -41,7 +41,7 @@ while dayTimer < 86400:  #86400 seconds is 24 hours
         if hourTemperatureList[listTracker] < minTemp:
             minTemp = hourTemperatureList[listTracker]
             #print(minTemp)
-        print('HourAvg=%d DayAvg=%d Min=%d Max=%d' % (avgTempHour, avgTemp24Hours,minTemp,maxTemp ))
+        print('HourAvg=%f DayAvg=%f Min=%f Max=%f' % (avgTempHour, avgTemp24Hours,minTemp,maxTemp ))
         listTracker += 1
         dayTimer += 5
         hourTimer += 5
