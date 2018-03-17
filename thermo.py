@@ -1,4 +1,4 @@
-thermostatDisplay.htmlimport Adafruit_BBIO.ADC as ADC
+import Adafruit_BBIO.ADC as ADC
 import Adafruit_BBIO.GPIO as GPIO
 import subprocess
 from time import sleep
@@ -94,9 +94,6 @@ while True:
         file.write("</P>")
         file.write("<P>Temperature (F): ")
         file.write('{}'.format(far))
-        file.write("</P>")
-        file.write("<P>MaxTemp: ")
-        file.write('{}'.format(tempValues24Hours.maxTemp))
         file.write("</P>")
 
     sleep(.5)
