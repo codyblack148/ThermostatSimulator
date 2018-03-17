@@ -33,16 +33,16 @@ while dayTimer < 86400:  #86400 seconds is 24 hours
         hourTemperatureList.append(celsius)
         #print(celsius)
         #print(hourTemperatureList[listTracker])
-        #print(minTemp)
+        print(minTemp)
         print(maxTemp)
         if hourTemperatureList[listTracker] > maxTemp:
             maxTemp = hourTemperatureList[listTracker]
-            print(maxTemp)
+            #print(maxTemp)
         if hourTemperatureList[listTracker] < minTemp:
             minTemp = hourTemperatureList[listTracker]
             #print(minTemp)
-        #print('HourAvg=%d DayAvg=%d Min=%d Max=%d' % (avgTempHour, avgTemp24Hours,minTemp,maxTemp ))
+        print('HourAvg=%d DayAvg=%d Min=%d Max=%d' % (avgTempHour, avgTemp24Hours,minTemp,maxTemp ))
         listTracker += 1
         dayTimer += 5
         hourTimer += 5
-        sleep(5) #take readings every two minutes
+        sleep(2) #take readings every two minutes
