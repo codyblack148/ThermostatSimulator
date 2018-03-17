@@ -30,20 +30,26 @@ def pushToServer(x,y,pressTime):
     file = open('/var/www/html/pr3.html','w')
     #file.write("#!/usr/bin/python\n")
     #file.write("Content-type: text/html\n\n")
-    file.write("<title>CGI 101</title>")
+    file.write("<title>Whiskey is Life</title>")
     file.write("<h1>CodyWanKenobi's Jedi Statistics</h1>")
-    file.write("<P>This is fun")
+    file.write("<P>This is fun</p>")
     if x:
-        file.write("Up button is being pushed now.\n")
+        file.write("<P>Up button is being pushed now.</p>\n")
     else:
-        file.write("Up button is NOT being pushed now.\n")
+        file.write("<P>Up button is NOT being pushed now.</p>\n")
     if y:
-        file.write("Down button is being pushed now.\n")
+        file.write("<P>Down button is being pushed now.</p>\n")
     else:
-        file.write("Down button is NOT being pushed now.\n")
-    file.write("%s\n".format(pressTime))
-    file.write("%s\n".format(upTime))
-    file.write("%s\n".format(celsius))
+        file.write("<P>Down button is NOT being pushed now.</p>\n")
+    file.write("<P>Last Press: ")
+    file.write(pressTime)
+    file.write("</P>")
+    file.write("<P>Uptime: ")
+    file.write(uptime)
+    file.write("</P>")
+    file.write("<P>Temperature (C): ")
+    file.write(celsius)
+    file.write("</P>")
 
 
 
