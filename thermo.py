@@ -13,7 +13,8 @@ temperatureDown = 'P9_13'
 # values that reflect the GPIO input values, initialize system time for button change
 upButtonValue = 0
 downButtonValue = 0
-buttonPressTime = 0
+upPressTime = 0
+downPressTime = 0
 celsius = 0
 far = 0
 
@@ -80,15 +81,13 @@ while True:
         if downPress:
             file.write("<P>Down button pressed.</p>\n")
         else:
-            file.write("<P>Down button inactive.</p>\n")
-        if upValue:
-            file.write("<P>Last Press Temperature Up @: ")
-            file.write('{}'.format(upPressTime))
-            file.write("</P>")
-        if downValue:
-            file.write("<P>Last Press Temperature Down @: ")
-            file.write('{}'.format(downPressTime))
-            file.write("</P>")
+        file.write("<P>Down button inactive.</p>\n")
+        file.write("<P>Last Press Temperature Up @: ")
+        file.write('{}'.format(upPressTime))
+        file.write("</P>")
+        file.write("<P>Last Press Temperature Down @: ")
+        file.write('{}'.format(downPressTime))
+        file.write("</P>")
         file.write("<P>Temperature (C): ")
         file.write('{}'.format(celsius))
         file.write("</P>")
