@@ -2,7 +2,6 @@ import Adafruit_BBIO.ADC as ADC
 import Adafruit_BBIO.GPIO as GPIO
 import subprocess
 from time import sleep
-import tempValues24Hours
 
 debug = 1
 
