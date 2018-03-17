@@ -2,6 +2,7 @@ import Adafruit_BBIO.ADC as ADC
 import Adafruit_BBIO.GPIO as GPIO
 import subprocess
 from time import sleep
+import tempValues24Hours
 
 debug = 1
 
@@ -93,6 +94,9 @@ while True:
         file.write("</P>")
         file.write("<P>Temperature (F): ")
         file.write('{}'.format(far))
+        file.write("</P>")
+        file.write("<P>MaxTemp: ")
+        file.write('{}'.format(tempValues24Hours.maxTemp))
         file.write("</P>")
 
     sleep(.5)
