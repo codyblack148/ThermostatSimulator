@@ -25,16 +25,17 @@ if debug:
 upTimeStr = subprocess.check_output(['uptime'])
 index = upTimeStr.find("up")
 upTime = upTimeStr[index+3:index+11]
-if upTime.find(",") not -1:
-    upTime = upTimeStr[index+3:index+10]
+comma = upTime.find(",")
+if comma != -1:
+    upTime = upTime[:comma]
 
 if debug:
-    print(upTime)
+    print("System Uptime: {}".format(upTime))
 
 # Use subprocess to store current date/time.
 date = subprocess.check_output(['date'])
 if debug:
-    print("System Date: \n {}".format(date))
+    print("System Date: {}".format(date))
 ADC.setup()
 GPIO.setup(temperatureUp,GPIO.IN)
 GPIO.setup(temperatureDown,GPIO.IN)
