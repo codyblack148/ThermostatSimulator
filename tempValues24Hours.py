@@ -43,7 +43,7 @@ while dayTimer < 86400:  #86400 seconds is 24 hours
             #print(minTemp)
         print('HourAvg=%f DayAvg=%f Min=%f Max=%f' % (avgTempHour, avgTemp24Hours,minTemp,maxTemp ))
         with open('/var/www/html/hourlyTempStatistics.html','w') as file:
-            file.write("<title>Yes Daddy</title>")
+            file.write("<title>24 Hour Temp Stats</title>")
             file.write("<h1>CodyWanKenobi's Jedi Magic</h1>")
             file.write("<P>Current System Temperature Statistics (C): \n")
             file.write('HourAvg=%f DayAvg=%f Min=%f Max=%f' % (avgTempHour, avgTemp24Hours,minTemp,maxTemp ))

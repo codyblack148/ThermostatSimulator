@@ -62,7 +62,7 @@ while True:
     upValue = GPIO.input(temperatureUp)
     downValue = GPIO.input(temperatureDown)
     with open('/var/www/html/thermostatDisplay.html','w') as file:
-        file.write("<title>Whiskey is Life</title>")
+        file.write("<title>Thermostat Display</title>")
         file.write("<h1>CodyWanKenobi's Jedi Magic</h1>")
         file.write("<P>System IP Information: \n")
         file.write('{}'.format(IP_Address))
